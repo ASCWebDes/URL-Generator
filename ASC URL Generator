@@ -2,6 +2,16 @@
 <html>
 <head>
 <title>URL Generator</title>
+<style>
+  #output-container {
+    display: flex;
+    align-items: center;
+  }
+  #generatedURL {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+</style>
 </head>
 <body>
 
@@ -27,9 +37,10 @@
   <button type="button" onclick="generateURL()">Generate URL</button>
 </form>
 
-<div id="output">
+<div id="output-container">
   <h2>Generated URL:</h2>
-  <textarea id="generatedURL" rows="3" cols="80" readonly></textarea>
+  <textarea id="generatedURL" rows="3" cols="70" readonly></textarea>
+  <button type="button" onclick="copyURL()">Copy</button>
 </div>
 
 <script>
@@ -57,6 +68,24 @@ function generateURL() {
 
   const finalURL = baseURL + params.join("&");
   document.getElementById("generatedURL").value = finalURL;
+}
+
+function copyURL() {
+  const generatedURLTextarea = document.getElementById("generatedURL");
+
+  // Select the text in the textarea
+  generatedURLTextarea.select();
+  generatedURLTextarea.setSelectionRange(0, generatedURLTextarea.value.length); // For mobile devices
+
+  // Use the Clipboard API to copy the text
+  navigator.clipboard.writeText(generatedURLTextarea.value)
+    .then(() => {
+      alert("URL copied to clipboard!"); // Optional: Provide feedback to the user
+    })
+    .catch((err) => {
+      console.error('Failed to copy: ', err);
+      alert("Failed to copy URL to clipboard. Please copy manually.");
+    });
 }
 </script>
 
