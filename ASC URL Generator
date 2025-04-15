@@ -72,19 +72,15 @@ function generateURL() {
 
 function copyURL() {
   const generatedURLTextarea = document.getElementById("generatedURL");
+  const textToCopy = generatedURLTextarea.value;
 
-  // Select the text in the textarea
-  generatedURLTextarea.select();
-  generatedURLTextarea.setSelectionRange(0, generatedURLTextarea.value.length); // For mobile devices
-
-  // Use the Clipboard API to copy the text
-  navigator.clipboard.writeText(generatedURLTextarea.value)
+  navigator.clipboard.writeText(textToCopy)
     .then(() => {
-      alert("URL copied to clipboard!"); // Optional: Provide feedback to the user
+      alert("URL copied to clipboard!"); // Provide feedback to the user
     })
     .catch((err) => {
       console.error('Failed to copy: ', err);
-      alert("Failed to copy URL to clipboard. Please copy manually.");
+      alert("Failed to copy URL to clipboard. Please copy manually (Ctrl+C or Cmd+C).");
     });
 }
 </script>
