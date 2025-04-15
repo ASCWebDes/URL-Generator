@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>URL Generator</title>
+</head>
+<body>
+
+<h1>Generate BarnPortal Order URL</h1>
+
+<form id="urlGenerator">
+  <div>
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" name="firstName"><br><br>
+  </div>
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" name="lastName"><br><br>
+  </div>
+  <div>
+    <label for="onlineCode">Online Access Code:</label>
+    <input type="text" id="onlineCode" name="onlineCode"><br><br>
+  </div>
+  <div>
+    <label for="orderNumber">Order Number:</label>
+    <input type="text" id="orderNumber" name="orderNumber"><br><br>
+  </div>
+  <button type="button" onclick="generateURL()">Generate URL</button>
+</form>
+
+<div id="output">
+  <h2>Generated URL:</h2>
+  <textarea id="generatedURL" rows="3" cols="80" readonly></textarea>
+</div>
+
+<script>
+function generateURL() {
+  const firstName = document.getElementById("firstName").value;
+  const lastName = document.getElementById("lastName").value;
+  const onlineCode = document.getElementById("onlineCode").value;
+  const orderNumber = document.getElementById("orderNumber").value;
+
+  const baseURL = "https://barnportal.com/myorder?";
+  const params = [];
+
+  if (firstName) {
+    params.push(`name=${encodeURIComponent(firstName)}`);
+  }
+  if (lastName) {
+    params.push(`lastname=${encodeURIComponent(lastName)}`);
+  }
+  if (orderNumber) {
+    params.push(`orderId=${encodeURIComponent(orderNumber)}`);
+  }
+  if (onlineCode) {
+    params.push(`onlinecCode=${encodeURIComponent(onlineCode)}`); // Using the correct 'onlinecCode'
+  }
+
+  const finalURL = baseURL + params.join("&");
+  document.getElementById("generatedURL").value = finalURL;
+}
+</script>
+
+</body>
+</html>
